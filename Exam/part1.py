@@ -46,7 +46,7 @@ sql ='''CREATE TABLE TRADES(
    TRADESIG INT
 )'''
 cursor.execute(sql)
-print("Table created successfully!.")
+#print("Table created successfully!.")
 conn.commit()
 
 #Pushing the 2017.csv data into the table
@@ -58,7 +58,7 @@ sql_upload = """
 """
 
 cursor.copy_expert(sql=sql_upload, file=my_file)
-print("File pushed to db!")
+#print("File pushed to db!")
 
 #First question:
 sql = """
@@ -115,8 +115,8 @@ monthly_perc["percent"] = round(monthly_perc["percent"], 2)
 
 print("\n")
 print("Monthly percentage of transactions with trade significance 3: ")
+print("\n")
 print(monthly_perc)
-print("Percentage of transactions per month:")
 #Closing the connection
 conn.close()
 
