@@ -6,8 +6,6 @@ Created on Fri Aug  5 11:05:56 2022
 """
 
 import psycopg2
-import os
-import numpy as np
 import pandas as pd
 
 df = pd.read_csv("2017.csv")
