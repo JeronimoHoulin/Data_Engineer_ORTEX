@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """
 Created on Fri Aug  5 14:23:23 2022
 
@@ -6,12 +5,10 @@ Created on Fri Aug  5 14:23:23 2022
 """
 
 import pandas as pd
-import numpy as np
 
 df = pd.read_csv("2017.csv")
-#list(df.columns.values)
 
-#Quesiton 1
+"""Quesiton 1"""
 stats = pd.DataFrame()
 for i in df.source.unique():
     
@@ -22,16 +19,13 @@ for i in df.source.unique():
     stats["ratio"] = stats["Buy"]/stats["Sell"]
     
     stats.loc[i, "shares"] = df[df["source"] == i].shares.sum() 
-    
 
     
-stats["weights"] = stats['shares'].transform(lambda x: (x/x.sum()) * 100)
-#print(stats["weights"].sum())
+stats["weights"] = stats['shares'].transform(lambda x: (x/x.sum())*100)
 
 stats["weighted_ratio"] = stats["ratio"] * stats["weights"]
     
 stats.sort_values(["weighted_ratio"], ascending=False).reset_index()
-
 
 print("\n")
 print("Question 1")
@@ -41,20 +35,26 @@ print(f" #2 {stats.index[1]}.")
 print(f" #3 {stats.index[2]}.")
 
 
-#Quesiton 2
-sumed_value = df.groupby(["currency"]).sum().sort_values(["value"], ascending=False).reset_index()
+"""Quesiton 2"""
+sumed_value = df.groupby(
+    ["currency"]
+    ).sum().sort_values(["value"], ascending=False).reset_index()
 top3 = sumed_value[0:3]
 
 print("\n")
 print("Question 2")
 print("Top 3 currencies by value traded:")
-print(f" #1 {top3.currency[0]} with ${'{:,.2f}'.format(round(top3.value[0]))} in traded value.")
-print(f" #2 {top3.currency[1]} with ${'{:,.2f}'.format(round(top3.value[1]))} in traded value.")
-print(f" #3 {top3.currency[2]} with ${'{:,.2f}'.format(round(top3.value[2]))} in traded value.")
+print(f" #1 {top3.currency[0]} with ${'{:,.2f}'.format(round(top3.value[0]))}")
+print(" in traded value.")
+print(f" #2 {top3.currency[1]} with ${'{:,.2f}'.format(round(top3.value[1]))}")
+print(" in traded value.")
+print(f" #3 {top3.currency[2]} with ${'{:,.2f}'.format(round(top3.value[2]))}")
+print(" in traded value.")
 
-#Question 3
+"""Question 3"""
 inrange = df[(df['inputdate'] - df['tradedate'] > 7*2)]
 
 print("\n")
 print("Question 3")
-print(f"The total number of transactions with Input date > 2 weeks from Trade date is {len(inrange)}.")
+print("The total number of trades with Inputdate > 2 weeks from Tradedate is:")
+print(f"{len(inrange)}.")
